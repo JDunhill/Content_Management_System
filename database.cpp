@@ -10,7 +10,7 @@ bool startPrompt() {
         help();
     }
     if (prompt == "exit" || prompt == "Exit") {
-        return a = false;
+        return a = false; 
     }  
     if (prompt == "show" || prompt == "Show") {
         std::string connectionString = "host= port= dbname=ArticleDB user=postgres password=";
