@@ -1,19 +1,37 @@
+#include <cctype>
+#include <iostream>
+#include <string>
+#include <stdlib.h>
+#include <pqxx/pqxx>
+
+
+void prompt::help() {
+
+    std::cout << "Here is a list of commands:" << std::endl << "1: add (URL)" << std::endl << "2: remove (URL)" << std::endl << "3: show (URL)" << std::endl << "4: exit" << std::endl;
+
+}
+
 // beginning prompt for keeping program running and providing exit function
 bool startPrompt() { 
      
-
+    std::string containsShow ("show");
+    std::string containsExit ("exit");
     bool a = true; 
     std::string prompt;
     std::cout << "Input a command and your URL. For a list of commands, type 'help'." << std::endl;
     std::cin >> prompt;
-    if (prompt == "help" || prompt == "Help") {
+    std::string lowerPrompt;
+    lowerPrompt = tolower(prompt);
+    
+    if (prompt == "help") {
         help();
     }
-    if (prompt == "exit" || prompt == "Exit") {
+    if (prompt.find(containsExit) != string::npos) {
         return a = false; 
     }  
-    if (prompt == "show" || prompt == "Show") {
+    if (prompt.find(containsShow) != string::npos) {
         std::string connectionString = "host= port= dbname=ArticleDB user=postgres password=";
+
 
         // connecting to PostgreSQL database
         try
@@ -35,7 +53,6 @@ bool startPrompt() {
         {
             std::cerr << e.what() << std::endl;
         }
-        system("pause");
     }
     
     return a;
